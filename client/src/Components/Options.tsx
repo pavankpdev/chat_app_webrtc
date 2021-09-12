@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useContext } from "react";
 import {
   Button,
@@ -7,11 +8,12 @@ import {
   Container,
   Paper,
 } from "@material-ui/core";
+// @ts-ignore
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Assignment, Phone, PhoneDisabled } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SocketContext } from "../Context";
+import { SocketContext } from "context/Socket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +46,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sidebar = ({ children }) => {
-  const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } =
-    useContext(SocketContext);
+const Sidebar: React.FC<{ children: React.ReactChild }> = ({ children }) => {
+  const {
+    call,
+    callAccepted,
+    myVideo,
+    userVideo,
+    stream,
+    name,
+    setName,
+    callEnded,
+    me,
+    callUser,
+    leaveCall,
+    answerCall,
+  } = useContext(SocketContext);
   const [idToCall, setIdToCall] = useState("");
   const classes = useStyles();
 
